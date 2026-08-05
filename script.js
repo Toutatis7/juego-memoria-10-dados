@@ -24,6 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const cortina = document.getElementById("cortina");
 
+    // Formulario donde el usuario escribe
+    // sus recuerdos
+
+    const formulario = document.getElementById("formulario");
+
     // Elemento donde mostraremos el contador
 
     const contador = document.getElementById("contador");
@@ -178,6 +183,9 @@ function iniciarTemporizador() {
 
             // Mostrar cortina
             cortina.classList.remove("oculto");
+
+            // Mostrar formulario
+            formulario.classList.remove("oculto");
 
 
             console.log(
