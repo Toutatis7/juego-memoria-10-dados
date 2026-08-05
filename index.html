@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <!--
+        ==========================================
+        CONFIGURACIÓN BÁSICA DE LA PÁGINA
+        ==========================================
+    -->
+
+    <meta charset="UTF-8">
+
+    <!--
+        Hace que la página se adapte
+        correctamente a móviles y tablets
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>
+        Juego de Memoria - 10 Dados
+    </title>
+
+
+    <!--
+        Conectamos nuestro archivo de estilos CSS
+        Todavía lo crearemos después
+    -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!--
+        ==========================================
+        CONTENEDOR PRINCIPAL DEL JUEGO
+        ==========================================
+
+        Dentro de este div estará todo nuestro juego:
+        - título
+        - configuración
+        - tablero
+        - resultados
+    -->
+
+    <main class="contenedor-juego">
+
+
+        <!-- Título principal -->
+
+        <h1>
+            🎲 Juego de Memoria - 10 Dados 🎲
+        </h1>
+
+
+
+        <!--
+            ======================================
+            CONFIGURACIÓN DE LA PARTIDA
+            ======================================
+
+            Aquí el usuario podrá elegir:
+            - dificultad mediante tiempo
+            - iniciar partida
+        -->
+
+        <section class="configuracion">
+
+
+            <label for="tiempo">
+
+                Tiempo de memoria:
+
+            </label>
+
+
+
+            <select id="tiempo">
+
+
+                <option value="10">
+                    10 segundos
+                </option>
+
+
+                <option value="20">
+                    20 segundos
+                </option>
+
+
+                <option value="30">
+                    30 segundos
+                </option>
+
+
+                <option value="40">
+                    40 segundos
+                </option>
+
+
+            </select>
+
+
+
+            <button id="btnIniciar">
+
+                Iniciar Juego
+
+            </button>
+
+
+        </section>
+
+
+
+        <!--
+            ======================================
+            TABLERO DE LOS DADOS
+            ======================================
+
+            De momento está vacío.
+
+            Más adelante JavaScript creará
+            aquí los 10 dados automáticamente.
+
+        -->
+
+        <section 
+            id="tablero"
+            class="tablero">
+
+
+        </section>
+
+
+
+        <!--
+            ======================================
+            ZONA DE INFORMACIÓN
+            ======================================
+
+            Aquí mostraremos:
+            - contador
+            - mensajes
+            - puntuación
+
+            Actualmente vacío.
+        -->
+
+
+        <section 
+            id="informacion"
+            class="informacion">
+
+
+        </section>
+
+
+
+    </main>
+
+
+
+    <!--
+        Pie de página del proyecto
+    -->
+
+    <footer>
+
+        <p>
+            Proyecto desarrollado por Vicente - 2026
+        </p>
+
+    </footer>
+
+
+
+    <!--
+        Conexión con JavaScript
+
+        Lo ponemos al final del body porque
+        queremos que primero cargue el HTML.
+
+    -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
