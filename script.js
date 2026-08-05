@@ -29,6 +29,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const formulario = document.getElementById("formulario");
 
+    // Boton que revisa las respuestas del usuario
+
+    const btnCorregir = document.getElementById("btnCorregir");
+
+    // Al abrir la pagina el formulario permanece oculto
+
+    formulario.classList.add("oculto");
+
     // Elemento donde mostraremos el contador
 
     const contador = document.getElementById("contador");
@@ -69,6 +77,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     ];
 
+    // ==========================================
+// GUARDAR RESULTADO REAL DE LA PARTIDA
+// ==========================================
+
+// Aquí almacenaremos las caras
+// que aparecen en los 10 dados
+
+let resultadoReal = [];
+
 
 
     // ==================================================
@@ -83,6 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // limpiamos el tablero.
 
         tablero.innerHTML = "";
+
+        // Borramos resultado de partida anterior
+        resultadoReal = [];
 
 
 
@@ -120,6 +140,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             dado.textContent = caras[numeroAleatorio];
 
+            // Guardamos el resultado real
+
+            resultadoReal.push(caras[numeroAleatorio]);
+
 
 
             // Introducimos el dado dentro del tablero
@@ -128,6 +152,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         }
+
+        // Comprobamos que guarda los 10 dados
+        console.log(
+            "Resultado real de la partida: ",
+            resultadoReal
+        );
 
 
     }
@@ -203,6 +233,46 @@ function iniciarTemporizador() {
 
 
 
+// ==========================================
+// PRUEBA BOTÓN CORREGIR
+// ==========================================
+
+function corregirRespuestas(){
+
+    console.log("Entando en corregir");
+    
+    console.log(
+        "Resultado real:",
+        resultadoReal
+    );
+
+
+    let contadorCaras = {
+
+        "🎵":0,
+        "🎨":0,
+        "🔤":0,
+        "🔣":0,
+        "🔢":0,
+        "🐾":0
+
+    };
+
+
+    resultadoReal.forEach(cara => {
+
+        contadorCaras[cara]++;
+
+    });
+
+
+    console.log(
+        "Contador de caras:",
+        contadorCaras
+    );
+
+}
+
     // ==================================================
     // EVENTO DEL BOTÓN
     // ==================================================
@@ -216,6 +286,13 @@ function iniciarTemporizador() {
             crearDados();
             iniciarTemporizador();
         }
+    );
+
+    // Cuando pulsamos corregir
+
+    btnCorregir.addEventListener(
+        "click",
+        corregirRespuestas
     );
 
 
