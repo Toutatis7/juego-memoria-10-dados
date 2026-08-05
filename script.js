@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const tablero = document.getElementById("tablero");
 
+    // Elemento donde mostraremos el contador
+
+    const contador = document.getElementById("contador");
+
 
     // Buscamos el botón iniciar
 
@@ -119,6 +123,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+    // ==================================================
+// FUNCIÓN TEMPORIZADOR
+// ==================================================
+
+
+function iniciarTemporizador() {
+
+
+    // Obtenemos el tiempo elegido por el usuario
+
+    let tiempo = parseInt(
+        document.getElementById("tiempo").value
+    );
+
+
+    // Mostramos el tiempo inicial
+
+    contador.textContent =
+        "Tiempo restante: " + tiempo + " segundos";
+
+
+
+    // Creamos un intervalo que se ejecuta cada segundo
+
+    const intervalo = setInterval(() => {
+
+
+        tiempo--;
+
+
+
+        contador.textContent =
+            "Tiempo restante: " 
+            + tiempo 
+            + " segundos";
+
+
+
+        // Cuando llega a cero
+
+        if (tiempo <= 0) {
+
+
+            clearInterval(intervalo);
+
+
+            contador.textContent =
+                "⏰ Tiempo terminado";
+
+
+            console.log(
+                "Fin del tiempo"
+            );
+
+        }
+
+
+    },1000);
+
+
+    }
+
 
 
 
@@ -131,7 +197,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     btnIniciar.addEventListener(
         "click",
-        crearDados
+        () => {
+            crearDados();
+            iniciarTemporizador();
+        }
     );
 
 
