@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const tablero = document.getElementById("tablero");
 
+    // Elemento que tapa los dados cuando termina el tiempo
+
+    const cortina = document.getElementById("cortina");
+
     // Elemento donde mostraremos el contador
 
     const contador = document.getElementById("contador");
@@ -171,6 +175,9 @@ function iniciarTemporizador() {
 
             contador.textContent =
                 "⏰ Tiempo terminado";
+
+            // Mostrar cortina
+            cortina.classList.remove("oculto");
 
 
             console.log(

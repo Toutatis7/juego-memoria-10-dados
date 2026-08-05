@@ -1,0 +1,59 @@
+/* ==========================================
+   CORTINA DE MEMORIA
+   ==========================================
+
+   position:absolute permite colocar
+   la cortina encima del tablero.
+
+   z-index controla las capas.
+*/
+
+
+.cortina {
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+
+    /* Negro casi opaco */
+
+    background: rgba(0,0,0,0.95);
+
+
+    color: white;
+
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+
+    text-align: center;
+
+
+    z-index: 10;
+
+}
+
+
+
+/*
+   Clase común para ocultar elementos
+
+   JavaScript añadirá o quitará esta clase
+*/
+
+.oculto {
+
+    display:none;
+
+}
