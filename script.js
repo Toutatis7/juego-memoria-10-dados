@@ -174,6 +174,12 @@ let resultadoReal = [];
 
 function iniciarTemporizador() {
 
+    // Ocultamos el formulario al comenzar partida
+    formulario.classList.add("oculto");
+
+    // Ocultamos la cortina
+    cortina.classList.add("oculto");
+
 
     // Obtenemos el tiempo elegido por el usuario
 
@@ -359,6 +365,38 @@ function corregirRespuestas(){
         ${informe}
 
     `;
+    // CREAR NUEVO BOTÓN PARA REINICIAR EL JUEGO
+    const btnReiniciar = document.createElement("button");
+    btnReiniciar.textContent = "🔄 Reiniciar";
+    btnReiniciar.classList.add("btn-reiniciar");
+    // Añadimos el boton al resultado
+    resultado.appendChild(btnReiniciar);
+
+    // Evento del boton reiniciar
+    btnReiniciar.addEventListener("click", () => {
+
+        // Limpiamos las respuestas del usuario
+        document.getElementById("notas").value = "";
+        document.getElementById("colores").value = "";
+        document.getElementById("letras").value = "";
+        document.getElementById("simbolos").value = "";
+        document.getElementById("numeros").value = "";
+        document.getElementById("animales").value = "";
+
+        // Ocultamos el formulario
+        formulario.classList.add("oculto");
+        
+        // Ocultamos el resultado
+        resultado.classList.add("oculto");
+
+        // Ocultamos la cortina
+        cortina.classList.add("oculto");
+
+        // Iniciamos un nuevo juego
+        crearDados();
+        iniciarTemporizador();
+
+    });
 
 }
 

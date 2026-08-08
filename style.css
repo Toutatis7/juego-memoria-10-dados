@@ -150,3 +150,38 @@
     text-align: left;
     line-height:1.8;
 }
+
+
+/* Titulo del resuntado*/
+.h3{
+    text-align: center;
+    margin-top: 0;
+
+}
+
+/*
+Aciertos
+*/
+
+.acierto {
+    color: green;
+}
+
+/*Fallos*/
+
+.fallo {
+    color: red;
+}
+
+
+/*Boton reiniciar*/
+
+.btn-reiniciar {
+    display: block;
+    margin: 15px auto 0 auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid #333;
+    border-radius: 6px;
+}
