@@ -47,6 +47,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnIniciar = document.getElementById("btnIniciar");
 
 
+    // Zona donde mostraremos la puntuacion
+
+    const resultado = document.getElementById("resultado");
+
+
 
     // ==================================================
     // CONFIGURACIÓN DEL JUEGO
@@ -237,17 +242,16 @@ function iniciarTemporizador() {
 // PRUEBA BOTÓN CORREGIR
 // ==========================================
 
+// ==========================================
+// CORREGIR RESPUESTAS
+// ==========================================
+
 function corregirRespuestas(){
 
-    console.log("Entando en corregir");
-    
-    console.log(
-        "Resultado real:",
-        resultadoReal
-    );
 
+    // Contador real de símbolos
 
-    let contadorCaras = {
+    let contadorCaras={
 
         "🎵":0,
         "🎨":0,
@@ -259,17 +263,102 @@ function corregirRespuestas(){
     };
 
 
-    resultadoReal.forEach(cara => {
+    // Contamos los símbolos reales
+
+    resultadoReal.forEach(cara=>{
 
         contadorCaras[cara]++;
 
     });
 
 
-    console.log(
-        "Contador de caras:",
-        contadorCaras
-    );
+    // Leemos las respuestas del usuario
+
+    const respuestas={
+
+        "🎵":parseInt(document.getElementById("notas").value)||0,
+
+        "🎨":parseInt(document.getElementById("colores").value)||0,
+
+        "🔤":parseInt(document.getElementById("letras").value)||0,
+
+        "🔣":parseInt(document.getElementById("simbolos").value)||0,
+
+        "🔢":parseInt(document.getElementById("numeros").value)||0,
+
+        "🐾":parseInt(document.getElementById("animales").value)||0
+
+    };
+
+
+    let aciertos=0;
+
+    let fallos=0;
+
+    let informe="";
+
+
+    // Comparamos respuesta por respuesta
+
+    for(const simbolo in respuestas){
+
+        if(respuestas[simbolo]===contadorCaras[simbolo]){
+
+            aciertos++;
+
+            informe +=
+
+            "✅ " + simbolo +
+
+            " Correcto (" +
+
+            respuestas[simbolo] +
+
+            ")<br>";
+
+        }
+
+        else{
+
+            fallos++;
+
+            informe +=
+
+            "❌ " + simbolo +
+
+            " Tu respuesta: " +
+
+            respuestas[simbolo] +
+
+            " | Correcto: " +
+
+            contadorCaras[simbolo] +
+
+            "<br>";
+
+        }
+
+    }
+
+
+    // Mostrar resultado
+
+    resultado.classList.remove("oculto");
+
+
+    resultado.innerHTML=`
+
+        <h3>🏆 Resultado</h3>
+
+        <p><strong>Aciertos:</strong> ${aciertos}</p>
+
+        <p><strong>Fallos:</strong> ${fallos}</p>
+
+        <hr>
+
+        ${informe}
+
+    `;
 
 }
 
