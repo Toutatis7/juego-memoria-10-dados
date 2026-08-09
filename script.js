@@ -91,6 +91,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 let resultadoReal = [];
 
+// Estado actual del juego. Controlamos en que fase se encuentra nuestra partida.
+// preparacion -> todavia no hemos empezado
+// memorizacion -> los dados estan visibles
+// respuestas -> el jugador debe responder
+// resultado -> mostramos la puntuacion
+
+let estadoJuego = "preparacion";
+
+// Control del temporizador
+// Aqui guardaremos el identificador del temporizador.
+// Si existe un temporizador activo, no crearemos otro.
+let intervaloTemporizador = null;
+
+console.log("Estado:", estadoJuego);
+
 
 
     // ==================================================
@@ -100,6 +115,12 @@ let resultadoReal = [];
 
     function crearDados() {
 
+
+        // Los dados estan preparados para memorizar
+        // Cambiamos el estado del juego
+        estadoJuego = "memorizacion";
+
+        console.log("Estado:", estadoJuego);
 
         // Antes de crear nuevos dados,
         // limpiamos el tablero.
@@ -172,74 +193,152 @@ let resultadoReal = [];
 // ==================================================
 
 
+// ==========================================
+// FUNCIÓN TEMPORIZADOR
+// ==========================================
+
 function iniciarTemporizador() {
 
-    // Ocultamos el formulario al comenzar partida
-    formulario.classList.add("oculto");
+    // ------------------------------------------
+    // COMPROBAR SI YA EXISTE UN TEMPORIZADOR
+    // ------------------------------------------
 
-    // Ocultamos la cortina
-    cortina.classList.add("oculto");
+    // Si intervaloTemporizador no es null,
+    // significa que ya hay un temporizador funcionando.
+
+    if (intervaloTemporizador !== null) {
+
+        console.log(
+            "⚠️ Ya existe un temporizador activo."
+        );
+
+        return;
+    }
 
 
-    // Obtenemos el tiempo elegido por el usuario
+    // ------------------------------------------
+    // ESTADO DE LA PARTIDA
+    // ------------------------------------------
+
+    // Al comenzar mostramos los dados
+    // y entramos en modo memorización.
+
+    estadoJuego = "memorizacion";
+
+    // Mientras vemos los dados:
+    // No podemos corregir
+    // No podemos iniciar otra partida
+
+    btnIniciar.disabled = true;
+    btnCorregir.disabled = true;
+
+    console.log(
+        "Estado:",
+        estadoJuego
+    );
+
+
+    // ------------------------------------------
+    // OBTENER TIEMPO SELECCIONADO
+    // ------------------------------------------
 
     let tiempo = parseInt(
         document.getElementById("tiempo").value
     );
 
 
-    // Mostramos el tiempo inicial
+    // Mostrar tiempo inicial
 
     contador.textContent =
-        "Tiempo restante: " + tiempo + " segundos";
+        "Tiempo restante: "
+        + tiempo
+        + " segundos";
 
 
+    // ------------------------------------------
+    // CREAR TEMPORIZADOR
+    // ------------------------------------------
 
-    // Creamos un intervalo que se ejecuta cada segundo
-
-    const intervalo = setInterval(() => {
-
+    intervaloTemporizador = setInterval(() => {
 
         tiempo--;
 
 
+        // Actualizar contador
 
         contador.textContent =
-            "Tiempo restante: " 
-            + tiempo 
+            "Tiempo restante: "
+            + tiempo
             + " segundos";
 
 
-
-        // Cuando llega a cero
+        // --------------------------------------
+        // ¿HA TERMINADO EL TIEMPO?
+        // --------------------------------------
 
         if (tiempo <= 0) {
 
+            // Detenemos el temporizador
 
-            clearInterval(intervalo);
+            clearInterval(
+                intervaloTemporizador
+            );
 
+
+            // Muy importante:
+            // volvemos a poner la variable en null.
+            //
+            // Esto permitirá crear otro temporizador
+            // cuando comience la siguiente partida.
+
+            intervaloTemporizador = null;
+
+
+            // ----------------------------------
+            // CAMBIAR ESTADO
+            // ----------------------------------
+
+            estadoJuego = "respuestas";
+
+            // Ahora podemos corregir las respuestas
+            btnCorregir.disabled = false;
+
+            // Seguimos sin poder iniciar otra partida
+            btnIniciar.disabled = true;
+
+            console.log(
+                "Estado:",
+                estadoJuego
+            );
+
+
+            // ----------------------------------
+            // MOSTRAR FORMULARIO
+            // ----------------------------------
 
             contador.textContent =
                 "⏰ Tiempo terminado";
 
-            // Mostrar cortina
-            cortina.classList.remove("oculto");
 
-            // Mostrar formulario
-            formulario.classList.remove("oculto");
+            cortina.classList.remove(
+                "oculto"
+            );
+
+
+            formulario.classList.remove(
+                "oculto"
+            );
 
 
             console.log(
-                "Fin del tiempo"
+                "Fin del tiempo → formulario visible"
             );
 
         }
 
+    }, 1000);
 
-    },1000);
-
-
-    }
+}
 
 
 
@@ -253,6 +352,14 @@ function iniciarTemporizador() {
 // ==========================================
 
 function corregirRespuestas(){
+
+    // Cambiamos al estado de resultado
+    estadoJuego = "resultado";
+
+    console.log("Estado:", estadoJuego);
+
+    // Ya no podemos corregir otra vez
+    btnCorregir.disabled = true;
 
 
     // Contador real de símbolos
@@ -391,6 +498,10 @@ function corregirRespuestas(){
 
         // Ocultamos la cortina
         cortina.classList.add("oculto");
+
+        // Preparar los botones para una nueva partida
+        btnIniciar.disabled = true;
+        btnCorregir.disabled = true;
 
         // Iniciamos un nuevo juego
         crearDados();
