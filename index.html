@@ -73,32 +73,41 @@
 
             <label for="tiempo">
 
-                Tiempo de memoria:
+                Dificultad:
 
             </label>
+
+            <!-- Cada opcion tiene
+                - un texto que vera el jugador
+                - un valor en segundos
+                
+                De momento mantenemos el id="tiempo"
+                porque nuestro JavaScript actual
+                utiliza ese identificador
+                -->
 
 
 
             <select id="tiempo">
 
 
-                <option value="10">
-                    10 segundos
-                </option>
-
-
-                <option value="20">
-                    20 segundos
+                <option value="40">
+                    🟢 Fácil — 40 segundos
                 </option>
 
 
                 <option value="30">
-                    30 segundos
+                    🟡 Normal — 30 segundos
                 </option>
 
 
-                <option value="40">
-                    40 segundos
+                <option value="20">
+                    🟠 Difícil — 20 segundos
+                </option>
+
+
+                <option value="10">
+                    🔴 Experto — 10 segundos
                 </option>
 
 
@@ -106,6 +115,7 @@
 
 
 
+            <!-- Botón para iniciar la partida -->
             <button id="btnIniciar">
 
                 Iniciar Juego
@@ -120,14 +130,7 @@
         <!--
             ======================================
             TABLERO DE LOS DADOS
-            ======================================
-
-            De momento está vacío.
-
-            Más adelante JavaScript creará
-            aquí los 10 dados automáticamente.
-
-        -->
+            ======================================-->
 
         <section 
             id="tablero"
@@ -148,15 +151,15 @@
     de los dados.
 -->
 
-<div id="cortina" class="cortina oculto">
+    <div id="cortina" class="cortina oculto">
 
-    <h2>
-        ⏰ Tiempo terminado
-        <br>
-        ¿Cuántos dados recuerdas?
-    </h2>
+        <h2>
+            ⏰ Tiempo terminado
+            <br>
+            ¿Cuántos dados recuerdas?
+        </h2>
 
-</div>
+    </div>
 
 <!--
 ==========================================
@@ -169,90 +172,92 @@ JavaScript lo mostrará
 cuando termine el tiempo.
 -->
 
-<div id="formulario" class="formulario oculto">
+    <section id="formulario" class="formulario oculto">
 
 
-    <h2>
-        🧠 ¿Qué recuerdas?
-    </h2>
+        <h2>
+            🧠 ¿Qué recuerdas?
+        </h2>
 
 
-    <label>
-        🎵 Notas musicales:
-    </label>
+        <label for="notas">
+            🎵 Notas musicales:
+        </label>
 
-    <input 
-        type="number"
-        id="notas"
-        min="0">
-
-
-
-    <label>
-        🎨 Colores:
-    </label>
-
-    <input 
-        type="number"
-        id="colores"
-        min="0">
+        <input 
+            type="number"
+            id="notas"
+            min="0">
 
 
 
-    <label>
-        🔤 Letras:
-    </label>
+        <label for="colores">
+            🎨 Colores:
+        </label>
 
-    <input 
-        type="number"
-        id="letras"
-        min="0">
-
-
-
-    <label>
-        🔣 Símbolos:
-    </label>
-
-    <input 
-        type="number"
-        id="simbolos"
-        min="0">
+        <input 
+            type="number"
+            id="colores"
+            min="0">
 
 
 
-    <label>
-        🔢 Números:
-    </label>
+        <label for="letras">
+            🔤 Letras:
+        </label>
 
-    <input 
-        type="number"
-        id="numeros"
-        min="0">
-
-
-
-    <label>
-        🐾 Animales:
-    </label>
-
-    <input 
-        type="number"
-        id="animales"
-        min="0">
+        <input 
+            type="number"
+            id="letras"
+            min="0">
 
 
 
-    <button id="btnCorregir">
+        <label for="simbolos">
+            🔣 Símbolos:
+        </label>
 
-        Corregir
+        <input 
+            type="number"
+            id="simbolos"
+            min="0">
 
-    </button>
-
-    <div id="resultado" class="resultado oculto"></div>
 
 
-</div>
+        <label for="numeros">
+            🔢 Números:
+        </label>
+
+        <input 
+            type="number"
+            id="numeros"
+            min="0">
+
+
+
+        <label for="animales">
+            🐾 Animales:
+        </label>
+
+        <input 
+            type="number"
+            id="animales"
+            min="0">
+
+
+
+        <!-- boton corregir -->
+        <button id="btnCorregir">
+
+            Corregir
+
+        </button>
+
+        <!-- Zona de resultados -->
+        <div id="resultado" class="resultado oculto"></div>
+
+
+    </section>
 
 
 
