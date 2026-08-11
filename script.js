@@ -194,146 +194,57 @@ console.log("Estado:", estadoJuego);
 // ==========================================
 
 function iniciarTemporizador() {
+    // FUNCION TEMPORIZADOR
 
-    // ------------------------------------------
-    // COMPROBAR SI YA EXISTE UN TEMPORIZADOR
-    // ------------------------------------------
+    // Obtener el tiempo seleccionado
+    // El <select id="tiempo">
+    // correspondiente a cada nivel de dificultad
 
-    // Si intervaloTemporizador no es null,
-    // significa que ya hay un temporizador funcionando.
+    let tiempo = parseInt(document.getElementById("tiempo").value);
 
-    if (intervaloTemporizador !== null) {
+    // Obtener el nombre de la dificultad
 
-        console.log(
-            "⚠️ Ya existe un temporizador activo."
-        );
+    const opcionSeleccionada = document.getElementById("tiempo").options[
+document.getElementById("tiempo").selectedIndex
+    ];
 
-        return;
-    }
+    // Guardamos el texto de la dificultad
 
+    const dificultad = opcionSeleccionada.textContent.trim();
 
-    // ------------------------------------------
-    // ESTADO DE LA PARTIDA
-    // ------------------------------------------
+    console.log("Dificultad seleccionada:", dificultad);
 
-    // Al comenzar mostramos los dados
-    // y entramos en modo memorización.
-
-    estadoJuego = "memorizacion";
-
-    // Mientras vemos los dados:
-    // No podemos corregir
-    // No podemos iniciar otra partida
-
-    btnIniciar.disabled = true;
-    btnCorregir.disabled = true;
-
-    console.log(
-        "Estado:",
-        estadoJuego
-    );
+    console.log("Tiempo seleccionado:", tiempo, "segundos");
 
 
-    // ------------------------------------------
-    // OBTENER TIEMPO SELECCIONADO
-    // ------------------------------------------
+    // Mostrar informacion inicial
 
-    let tiempo = parseInt(
-        document.getElementById("tiempo").value
-    );
+    contador.textContent = dificultad + " | Tiempo restante: " + tiempo +  " segundos ";
 
+    // Crear temporizador
+    const intervalo = setInterval(() => {
 
-    // Mostrar tiempo inicial
+        tiempo --;
 
-    contador.textContent =
-        "Tiempo restante: "
-        + tiempo
-        + " segundos";
+        // Actualizamos el contador cada segundo
 
+        contador.textContent = dificultad + " | Tiempo restante: " + tiempo +  " segundos ";
 
-    // ------------------------------------------
-    // CREAR TEMPORIZADOR
-    // ------------------------------------------
-
-    intervaloTemporizador = setInterval(() => {
-
-        tiempo--;
-
-
-        // Actualizar contador
-
-        contador.textContent =
-            "Tiempo restante: "
-            + tiempo
-            + " segundos";
-
-
-        // --------------------------------------
-        // ¿HA TERMINADO EL TIEMPO?
-        // --------------------------------------
-
+        // Cuando el tiempo llega a 0
         if (tiempo <= 0) {
 
-            // Detenemos el temporizador
+            clearInterval(intervalo);
 
-            clearInterval(
-                intervaloTemporizador
-            );
+            contador.textContent = "Tiempo terminado";
 
+            // Mostrar el formulario
+            formulario.classList.remove("oculto");
 
-            // Muy importante:
-            // volvemos a poner la variable en null.
-            //
-            // Esto permitirá crear otro temporizador
-            // cuando comience la siguiente partida.
+            console.log("Fin del tiempo");
 
-            intervaloTemporizador = null;
-
-
-            // ----------------------------------
-            // CAMBIAR ESTADO
-            // ----------------------------------
-
-            estadoJuego = "respuestas";
-
-            // Ahora podemos corregir las respuestas
-            btnCorregir.disabled = false;
-
-            // Seguimos sin poder iniciar otra partida
-            btnIniciar.disabled = true;
-
-            console.log(
-                "Estado:",
-                estadoJuego
-            );
-
-
-            // ----------------------------------
-            // MOSTRAR FORMULARIO
-            // ----------------------------------
-
-            contador.textContent =
-                "⏰ Tiempo terminado";
-
-
-            cortina.classList.remove(
-                "oculto"
-            );
-
-
-            formulario.classList.remove(
-                "oculto"
-            );
-
-
-            console.log(
-                "Fin del tiempo → formulario visible"
-            );
-
-        }
-
-    }, 1000);
-
+    }
+    },1000);
+    
 }
 
 
