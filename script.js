@@ -234,6 +234,7 @@ function iniciarTemporizador() {
     // Si habia otro temporizador activo, lo detenemos
     if (intervaloTemporizador != null){
         clearInterval(intervaloTemporizador);
+        intervaloTemporizador = null;
     }
 
     // Obtener el tiempo seleccionado
@@ -501,11 +502,21 @@ function corregirRespuestas(){
         cortina.classList.add("oculto");
 
         // Preparar los botones para una nueva partida
+        // El estado vuelve a preparacion
+        estadoJuego = "preparacion";
+        console.log("Estado:", estadoJuego);
+        // El boton iniciar queda bloqueada
+        // porque vamos a iniciar automaticamente
         btnIniciar.disabled = false;
+
+        // El boton corregir queda bloqueado
+        // hasta que termine el temporizador
         btnCorregir.disabled = false;
 
-        // Iniciamos un nuevo juego
+        // Aumentamos el numero de partida
         numeroPartida ++;
+
+        console.log("Comenzar nueva partida:", numeroPartida)
 
         crearDados();
         iniciarTemporizador();
