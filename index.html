@@ -254,7 +254,61 @@ cuando termine el tiempo.
         </button>
 
         <!-- Zona de resultados -->
-        <div id="resultado" class="resultado oculto"></div>
+        <!--
+        Aqui Javascript mostrara:
+        -Puntuacion
+        -Aciertos
+        -Fallos
+        -Porcentaje de acierto
+        -dificultad utilizada
+        -numero de partida
+        -->
+
+        <div id="resultado" class="resultado oculto">
+
+            <h3>
+                🏆Resultado de la partida
+            </h3>
+
+            <p>
+                ⭐ Puntuacion:
+                <span id="puntuacion">0</span>
+            </p>
+
+            
+            <!--Aciertos-->
+            <p>
+                ✅ Aciertos:
+                <span id="aciertos">0</span>
+            </p>
+
+            <!--Fallos-->
+            <p>
+                ❌ Fallos:
+                <span id="fallos">0</span>
+            </p>
+
+            <!--Porcentaje-->
+            <p>
+                📊 Porcentaje de acierto:
+                <span id="porcentaje">0</span>
+            </p>
+
+            <!--Dificultad-->
+
+            <p>
+                ⚡ Dificultad:
+                <span id="dificultadResultado">0</span>
+            </p>
+
+            <!--Numero de partida-->
+            <p>
+                🎮 Numero de partida:
+                <span id="numeroPartidaResultado">1</span>
+            </p>
+
+        </div>
+                
 
 
     </section>

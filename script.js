@@ -51,6 +51,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const resultado = document.getElementById("resultado");
 
+    // ELEMENTOS DE LAS ESTADISTICAS
+
+    // Donde mostraremos la puntuacion
+    const puntuacion = document.getElementById("puntuacion");
+
+    // Donde mostraremos los aciertos
+    const aciertosElemento = document.getElementById("aciertos");
+
+    // Donde mostraremos los fallos
+    const fallosElemento = document.getElementById("fallos");
+
+    // Donde mostraremos el porcentaje de aciertos
+    const porcentajeElemento = document.getElementById("porcentaje");
+
+    // Donde mostraremos la dificultad
+    const dificultadResultado = document.getElementById("dificultadResultado");
+
+    // Donde mostraremos el numero de partida
+    const numeroPartidaResultado = document.getElementById("numeroPartida");
+
+    
+
+
 
 
     // ==================================================
@@ -99,6 +122,12 @@ let resultadoReal = [];
 
 let estadoJuego = "preparacion";
 
+// Numero de partida actual
+let numeroPartida = 0;
+
+// Dificultad de la partida actual
+let dificultadActual = "";
+
 // Control del temporizador
 // Aqui guardaremos el identificador del temporizador.
 // Si existe un temporizador activo, no crearemos otro.
@@ -129,6 +158,12 @@ console.log("Estado:", estadoJuego);
 
         // Borramos resultado de partida anterior
         resultadoReal = [];
+
+        // Ocultamos el formulario
+        formulario.classList.add("oculto");
+
+        // Desactivamos corregir mientras memorizamos
+        btnCorregir.disable = true;
 
 
 
@@ -196,6 +231,11 @@ console.log("Estado:", estadoJuego);
 function iniciarTemporizador() {
     // FUNCION TEMPORIZADOR
 
+    // Si habia otro temporizador activo, lo detenemos
+    if (intervaloTemporizador != null){
+        clearInterval(intervaloTemporizador);
+    }
+
     // Obtener el tiempo seleccionado
     // El <select id="tiempo">
     // correspondiente a cada nivel de dificultad
@@ -203,42 +243,57 @@ function iniciarTemporizador() {
     let tiempo = parseInt(document.getElementById("tiempo").value);
 
     // Obtener el nombre de la dificultad
+    const selectTiempo = document.getElementById("tiempo");
 
-    const opcionSeleccionada = document.getElementById("tiempo").options[
-document.getElementById("tiempo").selectedIndex
-    ];
+    const opcionSeleccionada = selectTiempo.options[selectTiempo.selectedIndex];
+
+    //const opcionSeleccionada = document.getElementById("tiempo").options[
+    //document.getElementById("tiempo").selectedIndex
+    //  ];
 
     // Guardamos el texto de la dificultad
 
-    const dificultad = opcionSeleccionada.textContent.trim();
+    dificultadActual = opcionSeleccionada.textContent.trim();
 
-    console.log("Dificultad seleccionada:", dificultad);
+    console.log("Dificultad seleccionada:", dificultadActual);
 
     console.log("Tiempo seleccionado:", tiempo, "segundos");
 
 
     // Mostrar informacion inicial
 
-    contador.textContent = dificultad + " | Tiempo restante: " + tiempo +  " segundos ";
+    contador.textContent = dificultadActual + " | Tiempo restante: " + tiempo +  " segundos ";
 
     // Crear temporizador
-    const intervalo = setInterval(() => {
+    intervaloTemporizador = setInterval(() => {
 
         tiempo --;
 
         // Actualizamos el contador cada segundo
 
-        contador.textContent = dificultad + " | Tiempo restante: " + tiempo +  " segundos ";
+        contador.textContent = dificultadActual + " | Tiempo restante: " + tiempo +  " segundos ";
 
         // Cuando el tiempo llega a 0
         if (tiempo <= 0) {
 
-            clearInterval(intervalo);
+            clearInterval(intervaloTemporizador);
+
+            intervaloTemporizador = null;
 
             contador.textContent = "Tiempo terminado";
 
+            // Mostrar la cortina
+            cortina.classList.remove("oculto");
+            // Cambiar estado
+            estadoJuego = "respuestas";
+
+            console.log("Estado:", estadoJuego);
+
             // Mostrar el formulario
             formulario.classList.remove("oculto");
+
+            // Activamos el boton corregir
+            btnCorregir.disable = false;
 
             console.log("Fin del tiempo");
 
@@ -310,12 +365,21 @@ function corregirRespuestas(){
 
     };
 
-
+// Variables para corregir
     let aciertos=0;
 
     let fallos=0;
 
     let informe="";
+
+    // Total de respuestas
+    //const totalRespuestas = aciertos + fallos;
+
+    // Calculamos el porcentaje de acierto
+    //const porcentaje = Math.round((aciertos / totalRespuestas) * 100);
+
+    // La puntuacion sera igual al numero de aciertos
+    //const puntos = aciertos;
 
 
     // Comparamos respuesta por respuesta
@@ -360,12 +424,34 @@ function corregirRespuestas(){
 
     }
 
+    // CALCULAR ESTADISTICAS
+
+    // Total de categorias evaluadas
+    const totalRespuestas = aciertos + fallos;
+
+    // Calculamos el porcentaje
+    const porcentaje =Math.round((aciertos / totalRespuestas) * 100);
+
+    // La puntuacion coincide con los aciertos
+    const puntos = aciertos;
+
+    // MOSTRAR EN CONSOLA
+    console.log("Aciertos:", aciertos);
+    console.log("Fallos:", fallos);
+    console.log("Porcentaje:", porcentaje + "%");
+    console.log("Puntos:", puntos);
+
+    
+
 
     // Mostrar resultado
 
     resultado.classList.remove("oculto");
 
+    console.log("Mostrando resultado");
+    //console.log(resultado);
 
+// Creamos el contenido del resultado
     resultado.innerHTML=`
 
         <h3>🏆 Resultado</h3>
@@ -373,6 +459,14 @@ function corregirRespuestas(){
         <p><strong>Aciertos:</strong> ${aciertos}</p>
 
         <p><strong>Fallos:</strong> ${fallos}</p>
+
+        <p><strong>Porcentaje:</strong> ${porcentaje}%</p>
+
+        <p><strong>Puntuacion:</strong> ${puntos}</p>
+
+        <p><strong>Dificultad:</strong> ${dificultadActual}</p>
+
+        <p><strong>Partida:</strong> ${numeroPartida}</p>
 
         <hr>
 
@@ -407,10 +501,12 @@ function corregirRespuestas(){
         cortina.classList.add("oculto");
 
         // Preparar los botones para una nueva partida
-        btnIniciar.disabled = true;
-        btnCorregir.disabled = true;
+        btnIniciar.disabled = false;
+        btnCorregir.disabled = false;
 
         // Iniciamos un nuevo juego
+        numeroPartida ++;
+
         crearDados();
         iniciarTemporizador();
 
@@ -428,6 +524,14 @@ function corregirRespuestas(){
     btnIniciar.addEventListener(
         "click",
         () => {
+            // Aumentados el numero de partida
+            numeroPartida++;
+
+            console.log("Comenzar partida:", numeroPartida);
+
+            // Desactivamos iniciar mientras se esta jugando
+            btnIniciar.disabled = true;
+
             crearDados();
             iniciarTemporizador();
         }
