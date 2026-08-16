@@ -135,6 +135,103 @@ let intervaloTemporizador = null;
 
 console.log("Estado:", estadoJuego);
 
+    // ==================================================
+    // CAMBIAR ESTADO DEL JUEGO
+    // ==================================================
+
+    //Esta funcion centraliza los cambios de estado.
+    //Asi evitamos cambiar estadoJuego de forma
+    // descontrolada por diferentes partes del programa
+
+    function cambiarEstado(nuevoEstado) {
+        // Guardamos el nuevo estado
+        estadoJuego = nuevoEstado;
+
+        console.log("Estado del juego:", estadoJuego);
+
+        // Actualizamos los botones
+        actualizarBotones();
+    }
+
+    // ==================================================
+    // CONTROL DE BOTONES
+    // ==================================================
+
+    // Activa o desactiva los botones dependiendo
+    // del estado actual de la partida.
+
+    function actualizarBotones() {
+        // Por defecto bloqueamos ambos botones.
+        btnIniciar.disabled = true;
+        btnCorregir.disabled = true;
+
+    // ==================================================
+    // ESTADO: PREPARACION
+    // ==================================================
+
+    // El jugador puede iniciar una partida.
+    if (estadoJuego === "preparacion") {
+        btnIniciar.disabled = false;
+    }
+
+    // ==================================================
+    // ESTADO: MEMORIZACION
+    // ==================================================
+
+    // Los dados estan visibles.
+    // No se puede iniciar otra partida
+    // ni corregir todavia.
+
+    if (estadoJuego === "memorizacion") {
+        btnIniciar.disabled = true;
+        btnCorregir.disabled = true;
+    }
+
+    // ==================================================
+    // ESTADO: RESPUESTAS
+    // ==================================================
+
+    // El tiempo ha terminado.
+    // El jugador puede corregir sus respuestas.
+
+    if (estadoJuego === "respuestas") {
+        btnIniciar.disabled = true;
+        btnCorregir.disabled = false;
+    }
+
+    // ==================================================
+    // ESTADO: RESULTADO
+    // ==================================================
+    // Ya hemos corregido la partida.
+    // Ambos botones permanecen bloqueados.
+
+    if (estadoJuego === "resultado") {
+        btnIniciar.disabled = true;
+        btnCorregir.disabled = true;
+    }
+
+    console.log(
+        "Botones actualizados ->",
+        "Iniciar:",
+        !btnIniciar.disabled,
+        "| Corregir:",
+        !btnCorregir.disabled
+    );
+
+        
+    }
+
+    // ==================================================
+    // ESTADO INICIAL DE LOS BOTONES
+    // ==================================================
+
+    // Al cargar el juego estamos en preparacion.
+    // Por tanto solo debe estar disponible
+    // el boton iniciar juego.
+
+    actualizarBotones();
+
+
 
 
     // ==================================================
@@ -147,9 +244,7 @@ console.log("Estado:", estadoJuego);
 
         // Los dados estan preparados para memorizar
         // Cambiamos el estado del juego
-        estadoJuego = "memorizacion";
-
-        console.log("Estado:", estadoJuego);
+        cambiarEstado("memorizacion");
 
         // Antes de crear nuevos dados,
         // limpiamos el tablero.
@@ -163,7 +258,7 @@ console.log("Estado:", estadoJuego);
         formulario.classList.add("oculto");
 
         // Desactivamos corregir mientras memorizamos
-        btnCorregir.disable = true;
+        //btnCorregir.disable = true;
 
 
 
@@ -286,15 +381,13 @@ function iniciarTemporizador() {
             // Mostrar la cortina
             cortina.classList.remove("oculto");
             // Cambiar estado
-            estadoJuego = "respuestas";
-
-            console.log("Estado:", estadoJuego);
+            cambiarEstado("respuestas");
 
             // Mostrar el formulario
             formulario.classList.remove("oculto");
 
             // Activamos el boton corregir
-            btnCorregir.disable = false;
+            //btnCorregir.disable = false;
 
             console.log("Fin del tiempo");
 
@@ -317,12 +410,10 @@ function iniciarTemporizador() {
 function corregirRespuestas(){
 
     // Cambiamos al estado de resultado
-    estadoJuego = "resultado";
-
-    console.log("Estado:", estadoJuego);
+    cambiarEstado("resultado");
 
     // Ya no podemos corregir otra vez
-    btnCorregir.disabled = true;
+    //btnCorregir.disabled = true;
 
 
     // Contador real de símbolos
@@ -503,15 +594,14 @@ function corregirRespuestas(){
 
         // Preparar los botones para una nueva partida
         // El estado vuelve a preparacion
-        estadoJuego = "preparacion";
-        console.log("Estado:", estadoJuego);
+        cambiarEstado("preparacion");
         // El boton iniciar queda bloqueada
         // porque vamos a iniciar automaticamente
-        btnIniciar.disabled = false;
+        //btnIniciar.disabled = false;
 
         // El boton corregir queda bloqueado
         // hasta que termine el temporizador
-        btnCorregir.disabled = false;
+        //btnCorregir.disabled = false;
 
         // Aumentamos el numero de partida
         numeroPartida ++;
