@@ -50,6 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Zona donde mostraremos la puntuacion
 
     const resultado = document.getElementById("resultado");
+
+    // Indicador visual del estado actual del juego
+    const estadoPartida = document.getElementById("estadoPartida");
     
 
 
@@ -100,6 +103,32 @@ let resultadoReal = [];
 // resultado -> mostramos la puntuacion
 
 let estadoJuego = "preparacion";
+
+//=======================
+// ACTUALIZAR ESTADO VISUAL DE LA PARTIDA
+//=======================
+function actualizarEstadoPartida() {
+    switch (estadoJuego) {
+        case "preparacion":
+            estadoPartida.textContent =
+                "🎮 Preparado para jugar";
+            break;
+        case "memorizacion":
+            estadoPartida.textContent =
+                "🧠 Memoriza los datos";
+            break;
+        case "respuestas":
+            estadoPartida.textContent =
+                "📝 Introduce tus respuestas";
+            break;
+        case "resultado":
+            estadoPartida.textContent =
+                "🏆 Resultado de la partida";
+            break;
+        
+    }
+}
+
 
 // Numero de partida actual
 let numeroPartida = 0;
@@ -259,6 +288,8 @@ console.log("Estado:", estadoJuego);
         // Los dados estan preparados para memorizar
         // Cambiamos el estado del juego
         cambiarEstado("memorizacion");
+        
+        actualizarEstadoPartida();
 
         // Antes de crear nuevos dados,
         // limpiamos el tablero.
@@ -390,16 +421,16 @@ function iniciarTemporizador() {
             intervaloTemporizador = null;
 
             contador.textContent = "⏰ Tiempo terminado";
-
-            // Mostrar la cortina
-            cortina.classList.remove("oculto");
+            // Mostrar el formulario
+            formulario.classList.remove("oculto");
             // Cambiar estado
             cambiarEstado("respuestas");
 
-            // Mostrar el formulario
+            actualizarEstadoPartida();
 
-
-        formulario.classList.remove("oculto");
+            // Mostrar la cortina
+            //cortina.classList.remove("oculto");
+            
 
             console.log("Fin del tiempo");
 
@@ -438,6 +469,8 @@ function corregirRespuestas(){
 
     // Cambiamos al estado de resultado
     cambiarEstado("resultado");
+    console.log("Estado:", estadoJuego);
+    actualizarEstadoPartida();
 // Contador real de símbolos
 
     let contadorCaras={

@@ -211,6 +211,18 @@ Aciertos
     font-weight: bold;
 }
 
+/*ESTADO DE LA PARTIDA*/
+/*Indicador que informa al jugador de la fase actual del juego
+*/
+#estadoPartida {
+    margin: 10px 0;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 18px;
+    border-radius: 8px;
+}
+
 
 /*Boton reiniciar*/
 
