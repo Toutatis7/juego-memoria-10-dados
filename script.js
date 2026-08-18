@@ -50,27 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Zona donde mostraremos la puntuacion
 
     const resultado = document.getElementById("resultado");
-
-    // ELEMENTOS DE LAS ESTADISTICAS
-
-    // Donde mostraremos la puntuacion
-    const puntuacion = document.getElementById("puntuacion");
-
-    // Donde mostraremos los aciertos
-    const aciertosElemento = document.getElementById("aciertos");
-
-    // Donde mostraremos los fallos
-    const fallosElemento = document.getElementById("fallos");
-
-    // Donde mostraremos el porcentaje de aciertos
-    const porcentajeElemento = document.getElementById("porcentaje");
-
-    // Donde mostraremos la dificultad
-    const dificultadResultado = document.getElementById("dificultadResultado");
-
-    // Donde mostraremos el numero de partida
-    const numeroPartidaResultado = document.getElementById("numeroPartida");
-
     
 
 
@@ -231,6 +210,41 @@ console.log("Estado:", estadoJuego);
 
     actualizarBotones();
 
+    // ==================================================
+    // LIMPIAR RESPUESTAS
+    // ==================================================
+
+    // Borra todas las respuestas introducidas
+    // por el jugador antes de comenzar
+    // una nueva partida
+
+    function limpiarRespuestas(){
+        // Limpiamos las respuestas del usuario
+        document.getElementById("notas").value = "";
+        document.getElementById("colores").value = "";
+        document.getElementById("letras").value = "";
+        document.getElementById("simbolos").value = "";
+        document.getElementById("numeros").value = "";
+        document.getElementById("animales").value = "";
+    }
+
+    //===============================================
+    // PREPARAR INTERFAZ PARA NUEVA PARTIDA
+    //===============================================
+
+    // Oculta los elementos que solamente deben
+    // aparecer despues de terminar la memorizacion
+    // o despues de corregir.
+
+    function prepararNuevaPartida() {
+        formulario.classList.add("oculto");
+        resultado.classList.add("oculto");
+        cortina.classList.add("oculto");
+
+        // Eliminamos el resultado de la partida anterior
+        resultado.innerHTML = "";
+    }
+
 
 
 
@@ -257,8 +271,7 @@ console.log("Estado:", estadoJuego);
         // Ocultamos el formulario
         formulario.classList.add("oculto");
 
-        // Desactivamos corregir mientras memorizamos
-        //btnCorregir.disable = true;
+        
 
 
 
@@ -327,7 +340,7 @@ function iniciarTemporizador() {
     // FUNCION TEMPORIZADOR
 
     // Si habia otro temporizador activo, lo detenemos
-    if (intervaloTemporizador != null){
+    if (intervaloTemporizador !== null){
         clearInterval(intervaloTemporizador);
         intervaloTemporizador = null;
     }
@@ -336,16 +349,16 @@ function iniciarTemporizador() {
     // El <select id="tiempo">
     // correspondiente a cada nivel de dificultad
 
-    let tiempo = parseInt(document.getElementById("tiempo").value);
+    //let tiempo = parseInt(document.getElementById("tiempo").value);
 
     // Obtener el nombre de la dificultad
     const selectTiempo = document.getElementById("tiempo");
 
+    let tiempo = parseInt(selectTiempo.value);
+
     const opcionSeleccionada = selectTiempo.options[selectTiempo.selectedIndex];
 
-    //const opcionSeleccionada = document.getElementById("tiempo").options[
-    //document.getElementById("tiempo").selectedIndex
-    //  ];
+    
 
     // Guardamos el texto de la dificultad
 
@@ -376,7 +389,7 @@ function iniciarTemporizador() {
 
             intervaloTemporizador = null;
 
-            contador.textContent = "Tiempo terminado";
+            contador.textContent = "⏰ Tiempo terminado";
 
             // Mostrar la cortina
             cortina.classList.remove("oculto");
@@ -384,10 +397,9 @@ function iniciarTemporizador() {
             cambiarEstado("respuestas");
 
             // Mostrar el formulario
-            formulario.classList.remove("oculto");
 
-            // Activamos el boton corregir
-            //btnCorregir.disable = false;
+
+        formulario.classList.remove("oculto");
 
             console.log("Fin del tiempo");
 
@@ -395,28 +407,38 @@ function iniciarTemporizador() {
     },1000);
     
 }
+    
+    //===========================================
+    // LEER RESPUESTAS DEL JUGADOR
+    //===========================================
 
+    // Obtiene los valores introducidos
+    // en el formulario de memoria.
 
+function obtenerRespuestas() {
+    return {
+        "🎵":parseInt(document.getElementById("notas").value)||0,
 
+        "🎨":parseInt(document.getElementById("colores").value)||0,
 
-// ==========================================
-// PRUEBA BOTÓN CORREGIR
-// ==========================================
+        "🔤":parseInt(document.getElementById("letras").value)||0,
 
-// ==========================================
-// CORREGIR RESPUESTAS
-// ==========================================
+        "🔣":parseInt(document.getElementById("simbolos").value)||0,
+
+        "🔢":parseInt(document.getElementById("numeros").value)||0,
+
+        "🐾":parseInt(document.getElementById("animales").value)||0
+    };
+}
+    // ==========================================
+    // CORREGIR RESPUESTAS
+    // ==========================================
 
 function corregirRespuestas(){
 
     // Cambiamos al estado de resultado
     cambiarEstado("resultado");
-
-    // Ya no podemos corregir otra vez
-    //btnCorregir.disabled = true;
-
-
-    // Contador real de símbolos
+// Contador real de símbolos
 
     let contadorCaras={
 
@@ -441,21 +463,7 @@ function corregirRespuestas(){
 
     // Leemos las respuestas del usuario
 
-    const respuestas={
-
-        "🎵":parseInt(document.getElementById("notas").value)||0,
-
-        "🎨":parseInt(document.getElementById("colores").value)||0,
-
-        "🔤":parseInt(document.getElementById("letras").value)||0,
-
-        "🔣":parseInt(document.getElementById("simbolos").value)||0,
-
-        "🔢":parseInt(document.getElementById("numeros").value)||0,
-
-        "🐾":parseInt(document.getElementById("animales").value)||0
-
-    };
+    const respuestas = obtenerRespuestas();
 
 // Variables para corregir
     let aciertos=0;
@@ -464,14 +472,7 @@ function corregirRespuestas(){
 
     let informe="";
 
-    // Total de respuestas
-    //const totalRespuestas = aciertos + fallos;
-
-    // Calculamos el porcentaje de acierto
-    //const porcentaje = Math.round((aciertos / totalRespuestas) * 100);
-
-    // La puntuacion sera igual al numero de aciertos
-    //const puntos = aciertos;
+    
 
 
     // Comparamos respuesta por respuesta
@@ -522,7 +523,7 @@ function corregirRespuestas(){
     const totalRespuestas = aciertos + fallos;
 
     // Calculamos el porcentaje
-    const porcentaje =Math.round((aciertos / totalRespuestas) * 100);
+    const porcentaje = totalRespuestas > 0 ? Math.round((aciertos / totalRespuestas) * 100) : 0;
 
     // La puntuacion coincide con los aciertos
     const puntos = aciertos;
@@ -541,9 +542,7 @@ function corregirRespuestas(){
     resultado.classList.remove("oculto");
 
     console.log("Mostrando resultado");
-    //console.log(resultado);
-
-// Creamos el contenido del resultado
+    // Creamos el contenido del resultado
     resultado.innerHTML=`
 
         <h3>🏆 Resultado</h3>
@@ -576,39 +575,23 @@ function corregirRespuestas(){
     btnReiniciar.addEventListener("click", () => {
 
         // Limpiamos las respuestas del usuario
-        document.getElementById("notas").value = "";
-        document.getElementById("colores").value = "";
-        document.getElementById("letras").value = "";
-        document.getElementById("simbolos").value = "";
-        document.getElementById("numeros").value = "";
-        document.getElementById("animales").value = "";
-
-        // Ocultamos el formulario
-        formulario.classList.add("oculto");
-        
-        // Ocultamos el resultado
-        resultado.classList.add("oculto");
-
-        // Ocultamos la cortina
-        cortina.classList.add("oculto");
-
-        // Preparar los botones para una nueva partida
-        // El estado vuelve a preparacion
+        limpiarRespuestas();
+        // Preparar visualmente una nueva partida
+        prepararNuevaPartida();
+        // Preparar el estado
         cambiarEstado("preparacion");
-        // El boton iniciar queda bloqueada
-        // porque vamos a iniciar automaticamente
-        //btnIniciar.disabled = false;
+        
 
-        // El boton corregir queda bloqueado
-        // hasta que termine el temporizador
-        //btnCorregir.disabled = false;
+        
 
         // Aumentamos el numero de partida
         numeroPartida ++;
 
         console.log("Comenzar nueva partida:", numeroPartida)
 
+        // Crear nuevos dados
         crearDados();
+        // Iniciar nuevo temporizador
         iniciarTemporizador();
 
     });
@@ -630,8 +613,7 @@ function corregirRespuestas(){
 
             console.log("Comenzar partida:", numeroPartida);
 
-            // Desactivamos iniciar mientras se esta jugando
-            btnIniciar.disabled = true;
+            
 
             crearDados();
             iniciarTemporizador();
