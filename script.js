@@ -104,30 +104,60 @@ let resultadoReal = [];
 
 let estadoJuego = "preparacion";
 
+
+
 //=======================
 // ACTUALIZAR ESTADO VISUAL DE LA PARTIDA
 //=======================
 function actualizarEstadoPartida() {
+
+    // Eliminamos las clases de estado anteriores
+
+    estadoPartida.classList.remove(
+        "estado-preparacion",
+        "estado-memorizacion",
+        "estado-respuestas",
+        "estado-resultado"
+    );
+
+    //Aplicamos la clase correspondiente
+    // al estado actual
+
     switch (estadoJuego) {
         case "preparacion":
             estadoPartida.textContent =
                 "🎮 Preparado para jugar";
+            estadoPartida.classList.add(
+                "estado-preparacion"
+            );
             break;
         case "memorizacion":
             estadoPartida.textContent =
                 "🧠 Memoriza los datos";
+            estadoPartida.classList.add(
+                "estado-memorizacion"
+            );
             break;
         case "respuestas":
             estadoPartida.textContent =
                 "📝 Introduce tus respuestas";
+            estadoPartida.classList.add(
+                "estado-respuestas"
+            );
             break;
         case "resultado":
             estadoPartida.textContent =
                 "🏆 Resultado de la partida";
+            estadoPartida.classList.add(
+                "estado-resultado"
+            );
             break;
         
     }
 }
+
+// Mostrar el estado inicial al cargar la pagina
+actualizarEstadoPartida();
 
 
 // Numero de partida actual

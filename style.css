@@ -223,6 +223,29 @@ Aciertos
     border-radius: 8px;
 }
 
+/*ESTADOS DE LA PARTIDA*/
+/*Estado inicial*/
+.estado-preparacion {
+    border: 2px solid #666;
+    background: #eeeeee;
+}
+
+/*El jugador esta memorizando*/
+.estado-memorizacion {
+    border: 2px solid #333;
+    background: #e6f2ff;
+}
+/*El jugador debe introducir sus respuestas*/
+.estado-respuestas {
+    border: 2px solid #cf2d2d;
+    background: #fff4d6;
+}
+
+/* Mostrar el resultado final*/
+.estado-resultado {
+    border: 2px solid #228833;
+    background: #e8f5e9;
+}
 
 /*Boton reiniciar*/
 
