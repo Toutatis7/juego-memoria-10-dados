@@ -66,7 +66,7 @@
 .formulario {
 
 
-    position: fixed;
+    position: absolute;
 
 
     top:50%;
@@ -88,7 +88,7 @@
 
 
 
-    width:300px;
+    width:(300px, calc(100vw - 40px));
 
 
 
@@ -105,8 +105,7 @@
     z-index:20;
 
 
-    box-shadow:
-    0 0 20px black;
+    box-shadow:0 0 20px black;
 
 }
 
@@ -206,7 +205,7 @@ Aciertos
 
 /*Numero de partida*/
 
-#numeroPartida {
+#numeroPartidaResultado {
     color: brown;
     font-weight: bold;
 }
@@ -219,13 +218,13 @@ Aciertos
     padding: 10px 15px;
     text-align: center;
     font-size: 18px;
-    font-weight: 18px;
+    font-weight: bold;
     border-radius: 8px;
     transition:
         background-color 0.3s ease,
         border-color 0.3s ease,
-        transform 0.3s ease;
-        box-shadow: 0.3s ease;
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 /*ESTADOS DE LA PARTIDA*/
@@ -265,8 +264,92 @@ Aciertos
 }
 
 /*REALCE DE LOS ESTADOS*/
+.estado-preparacion,
 .estado-memorizacion,
 .estado-respuestas,
 .estado-resultado {
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/*TABLERO DE LOS DADOS*/
+.tablero {
+    display: grid;
+    grid-template-columns: repeat(5, 60px);
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+/*DADOS*/
+.dado {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    border: 2px solid #333;
+    border-radius: 10px;
+}
+
+/*RESPONSIVE MOVILES*/
+
+@media (max-width: 600px) {
+    .formulario {
+        width: calc(100% - 40px);
+        padding: 20px;
+    }
+
+    .formulario input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .formulario button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .resultado {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px;
+        margin-top: 15px;
+        line-height: 1.6;
+    }
+
+    .resultado h3 {
+        font-size: 20px;
+    }
+
+    .resultado p {
+        font-size: 16px;
+    }
+
+    #estadoPartida {
+        font-size: 16px;
+        padding: 8px 10px;
+    }
+
+    .btn-reiniciar {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .tablero {
+        grid-template-columns: repeat(2, 60px);
+        gap: 10px;
+        max-width: 140px;
+    }
+
+    .dado {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
 }

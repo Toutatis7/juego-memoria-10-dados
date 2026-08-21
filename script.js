@@ -252,7 +252,7 @@ console.log("Estado:", estadoJuego);
         "Botones actualizados ->",
         "Iniciar:",
         !btnIniciar.disabled,
-        "| Corregir:",
+        "Corregir:",
         !btnCorregir.disabled
     );
 
