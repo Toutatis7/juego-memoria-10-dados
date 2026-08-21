@@ -227,6 +227,23 @@ Aciertos
         box-shadow 0.3s ease;
 }
 
+/*INFORMACION DEL ESTADO*/
+
+#estadoPartida {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#estadoPartida strong {
+    font-size: 18px;
+}
+
+#estadoPartida span {
+    font-size: 14px;
+    font-weight: normal;
+}
+
 /*ESTADOS DE LA PARTIDA*/
 /*Estado inicial*/
 .estado-preparacion {

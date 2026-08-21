@@ -53,6 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Indicador visual del estado actual del juego
     const estadoPartida = document.getElementById("estadoPartida");
+
+    // Indicador visual estado strong -> texto principal. Asi podremos cambiar cada uno independientemente
+    const textoEstado = estadoPartida.querySelector("strong");
+
+    // Indicador visual estado span -> texto explicacion. Asi podremos cambiar cada uno independientemente
+    const ayudaEstado = estadoPartida.querySelector("span");
     
 
 
@@ -125,29 +131,37 @@ function actualizarEstadoPartida() {
 
     switch (estadoJuego) {
         case "preparacion":
-            estadoPartida.textContent =
+            textoEstado.textContent =
                 "🎮 Preparado para jugar";
+            ayudaEstado.textContent=
+                "Elige la dificultad y pulsa INICIAR JUEGO";
             estadoPartida.classList.add(
                 "estado-preparacion"
             );
             break;
         case "memorizacion":
-            estadoPartida.textContent =
-                "🧠 Memoriza los datos";
+            textoEstado.textContent =
+                "🧠 Memoriza los dados";
+            ayudaEstado.textContent=
+                "Observa los 10 dados y memoriza sus caras.";
             estadoPartida.classList.add(
                 "estado-memorizacion"
             );
             break;
         case "respuestas":
-            estadoPartida.textContent =
+            textoEstado.textContent =
                 "📝 Introduce tus respuestas";
+            ayudaEstado.textContent=
+                "Indica cuantos dados recuerdas de cada tipo.";
             estadoPartida.classList.add(
                 "estado-respuestas"
             );
             break;
         case "resultado":
-            estadoPartida.textContent =
+            textoEstado.textContent =
                 "🏆 Resultado de la partida";
+            ayudaEstado.textContent=
+                "Comprueba tus aciertos y tu puntuacion.";
             estadoPartida.classList.add(
                 "estado-resultado"
             );
@@ -432,7 +446,7 @@ function iniciarTemporizador() {
 
     // Mostrar informacion inicial
 
-    contador.textContent = dificultadActual + " | Tiempo restante: " + tiempo +  " segundos ";
+    contador.textContent = "⏱️ Tiempo restante: " + tiempo + "segundos";
 
     // Crear temporizador
     intervaloTemporizador = setInterval(() => {
@@ -441,7 +455,7 @@ function iniciarTemporizador() {
 
         // Actualizamos el contador cada segundo
 
-        contador.textContent = dificultadActual + " | Tiempo restante: " + tiempo +  " segundos ";
+        contador.textContent = "⏱️ Tiempo restante: " + tiempo + "segundos";
 
         // Cuando el tiempo llega a 0
         if (tiempo <= 0) {
