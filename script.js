@@ -152,7 +152,7 @@ function actualizarEstadoPartida() {
             textoEstado.textContent =
                 "📝 Introduce tus respuestas";
             ayudaEstado.textContent=
-                "Indica cuantos dados recuerdas de cada tipo.";
+                "Indica cuantos dados recuerdas de cada tipo y pulsa Corregir.";
             estadoPartida.classList.add(
                 "estado-respuestas"
             );
@@ -161,7 +161,7 @@ function actualizarEstadoPartida() {
             textoEstado.textContent =
                 "🏆 Resultado de la partida";
             ayudaEstado.textContent=
-                "Comprueba tus aciertos y tu puntuacion.";
+                "Comprueba tus aciertos y tu puntuacion y, cuando quieras, pulsa Reiniciar para  jugar otra partida.";
             estadoPartida.classList.add(
                 "estado-resultado"
             );
