@@ -51,6 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const resultado = document.getElementById("resultado");
 
+    // Instruccion que aparece antes y durante el inicio de la partida
+
+    const instruccionInicio = document.getElementById("instruccionInicio");
+
     // Indicador visual del estado actual del juego
     const estadoPartida = document.getElementById("estadoPartida");
 
@@ -651,6 +655,8 @@ function corregirRespuestas(){
     // Evento del boton reiniciar
     btnReiniciar.addEventListener("click", () => {
 
+        // Restauramos la instruccion inicial
+        instruccionInicio.textContent = "🎯 Elige la dificultad y pulsa Iniciar Juego cuando estes preparado.";
         // Limpiamos las respuestas del usuario
         limpiarRespuestas();
         // Preparar visualmente una nueva partida
@@ -690,7 +696,8 @@ function corregirRespuestas(){
 
             console.log("Comenzar partida:", numeroPartida);
 
-            
+            // Cambiamos la instruccion al comenzar
+            instruccionInicio.textContent = "🚀 Partida iniciada !! Observa los dados y memoriza sus caras";
 
             crearDados();
             iniciarTemporizador();

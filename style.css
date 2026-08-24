@@ -312,6 +312,21 @@ Aciertos
     border-radius: 10px;
 }
 
+/* INSTRUCCION DE INICIO */
+
+#instruccionInicio {
+    margin: 15px auto 0 auto;
+    max-width: 500px;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.5px;
+    color: #444;
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
 /*RESPONSIVE MOVILES*/
 
 @media (max-width: 600px) {
