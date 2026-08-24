@@ -386,3 +386,35 @@ Aciertos
         font-size: 30px;
     }
 }
+
+/* TEMPORIZADOR DE MEMORIZACION */
+/* Contenedor principal del contador */
+
+#contador {
+    margin: 15px auto;
+    padding: 15px 25px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 12px;
+    background: #f5f5f5;
+    border: 2px solid #555;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Número de segundos */
+
+#tiempoRestante {
+    display: block;
+    font-size: 42px;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+/* Texto segundos */
+
+.unidad-tiempo {
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+}

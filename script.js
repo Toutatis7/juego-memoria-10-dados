@@ -41,6 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const contador = document.getElementById("contador");
 
+    // Elemento donde mostraremos únicamente el número de segundos restantes.
+
+    const tiempoRestante = document.getElementById("tiempoRestante");
+
 
     // Buscamos el botón iniciar
 
@@ -450,7 +454,8 @@ function iniciarTemporizador() {
 
     // Mostrar informacion inicial
 
-    contador.textContent = "⏱️ Tiempo restante: " + tiempo + "segundos";
+    //contador.textContent = "⏱️ Tiempo restante: " + tiempo + "segundos";
+    tiempoRestante.textContent = tiempo;
 
     // Crear temporizador
     intervaloTemporizador = setInterval(() => {
@@ -459,8 +464,8 @@ function iniciarTemporizador() {
 
         // Actualizamos el contador cada segundo
 
-        contador.textContent = "⏱️ Tiempo restante: " + tiempo + "segundos";
-
+        //contador.textContent = "⏱️ Tiempo restante: " + tiempo + "segundos";
+        tiempoRestante.textContent = tiempo;
         // Cuando el tiempo llega a 0
         if (tiempo <= 0) {
 
