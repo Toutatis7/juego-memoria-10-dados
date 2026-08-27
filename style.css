@@ -8,6 +8,11 @@
    z-index controla las capas.
 */
 
+.zona-tablero{
+    position: relative;
+    min-height: 200px;
+}
+
 
 .cortina {
 
@@ -41,6 +46,8 @@
 
 
     z-index: 10;
+
+    box-sizing: border-box;
 
 }
 

@@ -174,34 +174,29 @@
             TABLERO DE LOS DADOS
             ======================================-->
 
-        <section 
-            id="tablero"
-            class="tablero">
+        <div class="zona-tablero">
 
+            <!-- Tablero donde aparecen los 10 dados -->
+            <section
+                id="tablero"
+                class="tablero">
+            </section>
 
-        </section>
+            <!--
+                La cortina solamente cubrirá
+                la zona de los dados.
+            -->
+            <div id="cortina" class="cortina oculto">
 
-        <!--
-    ==========================================
-    CORTINA DE MEMORIA
-    ==========================================
+                <h2>
+                    ⏰ Tiempo terminado
+                    <br>
+                    ¿Cuántos dados recuerdas?
+                </h2>
 
-    Esta capa estará oculta al principio.
+            </div>
 
-    Cuando termine el tiempo JavaScript
-    cambiará su estado y aparecerá encima
-    de los dados.
--->
-
-    <div id="cortina" class="cortina oculto">
-
-        <h2>
-            ⏰ Tiempo terminado
-            <br>
-            ¿Cuántos dados recuerdas?
-        </h2>
-
-    </div>
+        </div>
 
 <!--
 ==========================================

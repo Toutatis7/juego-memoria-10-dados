@@ -598,7 +598,7 @@ function iniciarTemporizador() {
             
 
             // Mostrar la cortina
-            //cortina.classList.remove("oculto");
+            cortina.classList.remove("oculto");
             
 
             console.log("Fin del tiempo");
