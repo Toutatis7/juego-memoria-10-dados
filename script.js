@@ -41,6 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const contador = document.getElementById("contador");
 
+    // Zona donde mostraremos las instrucciones correspondientes al estado actual del juego
+
+    const instruccionesJuego = document.getElementById("instruccionesJuego")
+
     // Elemento donde mostraremos únicamente el número de segundos restantes.
 
     const tiempoRestante = document.getElementById("tiempoRestante");
@@ -67,6 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
+    // Mensaje que utilizaremos para avisar de respuestas no válidas
+
+    const mensajeValidacion = document.getElementById("mensajeValidacion");
+    
     // Zona donde mostraremos la puntuacion
 
     const resultado = document.getElementById("resultado");
@@ -343,7 +351,92 @@ console.log("Estado:", estadoJuego);
     }
 
 
+    // ==========================================
+// ACTUALIZAR INSTRUCCIONES
+// ==========================================
 
+    function actualizarInstrucciones() {
+
+        // Cambiamos el mensaje según el estado
+        // actual de la partida.
+
+        if (estadoJuego === "preparacion") {
+
+            instruccionesJuego.innerHTML = `
+                <h2>🧠 ¿Cómo jugar?</h2>
+
+                <p>
+                    🎯 Elige una dificultad y pulsa
+                    <strong>"Iniciar Juego"</strong>.
+                </p>
+
+                <p>
+                    👀 Memoriza los 10 dados mientras
+                    estén visibles.
+                </p>
+
+                <p>
+                    ⏰ Cuando termine el tiempo,
+                    tendrás que recordar los dados.
+                </p>
+
+                <p>
+                    📝 Introduce tus respuestas
+                    y pulsa <strong>"Corregir"</strong>.
+                </p>
+
+            `;
+
+        }
+
+        else if (estadoJuego === "memorizacion") {
+
+            instruccionesJuego.innerHTML = `
+                <h2>👀 ¡Memoriza!</h2>
+
+                <p>
+                    🧠 Observa los 10 dados
+                    y recuerda cuántos hay de cada tipo.
+                </p>
+            `;
+
+        }
+
+        else if (estadoJuego === "respuestas") {
+
+            instruccionesJuego.innerHTML = `
+                <h2>📝 Ahora responde</h2>
+
+                <p>
+                    Introduce cuántos dados recuerdas
+                    de cada categoría.
+                </p>
+
+                <p>
+                    ✅ Cuando hayas terminado,
+                    pulsa <strong>"Corregir"</strong>.
+                </p>
+            `;
+
+        }
+
+        else if (estadoJuego === "resultado") {
+
+            instruccionesJuego.innerHTML = `
+                <h2>🏆 Partida terminada</h2>
+
+                <p>
+                    Consulta tus aciertos,
+                    fallos y puntuación.
+                </p>
+
+                <p>
+                    🔄 Puedes reiniciar para jugar
+                    una nueva partida.
+                </p>
+            `;
+        }
+    }
 
     // ==================================================
     // FUNCIÓN CREAR DADOS
@@ -356,6 +449,8 @@ console.log("Estado:", estadoJuego);
         // Los dados estan preparados para memorizar
         // Cambiamos el estado del juego
         cambiarEstado("memorizacion");
+
+        actualizarInstrucciones();
         
         actualizarEstadoPartida();
 
@@ -489,13 +584,18 @@ function iniciarTemporizador() {
 
             intervaloTemporizador = null;
 
-            contador.textContent = "⏰ Tiempo terminado";
-            // Mostrar el formulario
-            formulario.classList.remove("oculto");
+            tiempoRestante.textContent = "⏰ Tiempo terminado";
+
             // Cambiar estado
             cambiarEstado("respuestas");
 
+            actualizarInstrucciones();
+
             actualizarEstadoPartida();
+            // Mostrar el formulario
+            formulario.classList.remove("oculto");
+            
+            
 
             // Mostrar la cortina
             //cortina.classList.remove("oculto");
@@ -530,6 +630,87 @@ function obtenerRespuestas() {
         "🐾":parseInt(document.getElementById("animales").value)||0
     };
 }
+
+// ==========================================
+// VALIDAR RESPUESTAS
+// ==========================================
+
+function validarRespuestas() {
+
+    // Obtenemos todos los campos numéricos
+    // del formulario.
+    const campos = document.querySelectorAll(
+        ".campo-memoria input"
+    );
+
+    // Revisamos cada campo.
+    for (const campo of campos) {
+
+        const valor = campo.value.trim();
+
+        // Comprobamos que no esté vacío.
+        if (valor === "") {
+
+            mensajeValidacion.textContent =
+                "⚠️ Completa todas las respuestas antes de corregir.";
+
+            mensajeValidacion.classList.remove("oculto");
+
+            campo.focus();
+
+            return false;
+        }
+
+        const numero = Number(valor);
+
+        // Comprobamos que sea un número válido.
+        if (!Number.isInteger(numero)) {
+
+            mensajeValidacion.textContent =
+                "⚠️ Las respuestas deben ser números enteros.";
+
+            mensajeValidacion.classList.remove("oculto");
+
+            campo.focus();
+
+            return false;
+        }
+
+        // No permitimos números negativos.
+        if (numero < 0) {
+
+            mensajeValidacion.textContent =
+                "⚠️ Las respuestas no pueden ser negativas.";
+
+            mensajeValidacion.classList.remove("oculto");
+
+            campo.focus();
+
+            return false;
+        }
+
+        // Como solamente existen 10 dados,
+        // ninguna categoría puede superar 10.
+        if (numero > 10) {
+
+            mensajeValidacion.textContent =
+                "⚠️ Una respuesta no puede ser superior a 10.";
+
+            mensajeValidacion.classList.remove("oculto");
+
+            campo.focus();
+
+            return false;
+        }
+    }
+
+    // Si todo es correcto ocultamos
+    // cualquier mensaje anterior.
+    mensajeValidacion.classList.add("oculto");
+
+    return true;
+}
+
     // ==========================================
     // CORREGIR RESPUESTAS
     // ==========================================
@@ -540,6 +721,7 @@ function corregirRespuestas(){
     cambiarEstado("resultado");
     console.log("Estado:", estadoJuego);
     actualizarEstadoPartida();
+    actualizarInstrucciones();
 // Contador real de símbolos
 
     let contadorCaras={
@@ -677,7 +859,7 @@ function corregirRespuestas(){
     btnReiniciar.addEventListener("click", () => {
 
         // Restauramos la instruccion inicial
-        instruccionInicio.textContent = "🎯 Elige la dificultad y pulsa Iniciar Juego cuando estes preparado.";
+        instruccionesJuego.textContent = "🎯 Elige la dificultad y pulsa Iniciar Juego cuando estes preparado.";
         // Limpiamos las respuestas del usuario
         limpiarRespuestas();
         // Preparar visualmente una nueva partida
@@ -718,7 +900,15 @@ function corregirRespuestas(){
             console.log("Comenzar partida:", numeroPartida);
 
             // Cambiamos la instruccion al comenzar
-            instruccionInicio.textContent = "🚀 Partida iniciada !! Observa los dados y memoriza sus caras";
+            instruccionesJuego.textContent = "🚀 Partida iniciada !! Observa los dados y memoriza sus caras";
+
+            // Reiniciar temporizador. Si existiera un temporizador anterior
+            // lo detenemos completamente
+
+            if (intervaloTemporizador !== null) {
+                clearInterval(intervaloTemporizador);
+                intervaloTemporizador = null;
+            }
 
             crearDados();
             iniciarTemporizador();
@@ -729,7 +919,19 @@ function corregirRespuestas(){
 
     btnCorregir.addEventListener(
         "click",
-        corregirRespuestas
+        () => {
+
+        // Primero validamos las respuestas.
+        // Solo si son correctas continuamos
+        // con la corrección de la partida.
+
+            if (!validarRespuestas()) {
+
+                return;
+            }
+
+            corregirRespuestas();
+        }
     );
 
 

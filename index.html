@@ -122,9 +122,46 @@
 
             </button>
 
-            <p id="instruccionInicio">
-                🎯 Elige la dificultad y pulsa "Iniciar Juego".
-            </p>
+            <!-- ==========================================
+            INSTRUCCIONES DEL JUEGO
+            ==========================================
+
+            Explicamos al jugador cómo funciona
+            la partida antes de comenzar.
+            -->
+
+            <div id="instruccionesJuego" class="instrucciones-juego">
+
+                <h2>
+                    🧠 ¿Cómo jugar?
+                </h2>
+
+                <p>
+                    🎯 Elige una dificultad y pulsa
+                    <strong>"Iniciar Juego"</strong>.
+                </p>
+
+                <p>
+                    👀 Memoriza los 10 dados mientras
+                    estén visibles.
+                </p>
+
+                <p>
+                    ⏰ Cuando termine el tiempo,
+                    cuántos dados había de cada tipo.
+                </p>
+
+                <p>
+                    📝 Introduce tus respuestas y pulsa
+                    <strong>"Corregir"</strong>.
+                </p>
+
+                <p>
+                    🏆 Finalmente podrás consultar
+                    tu puntuación y porcentaje de aciertos.
+                </p>
+
+            </div>
 
 
 
@@ -283,7 +320,9 @@ cuando termine el tiempo.
 
         </div>
 
+        <!-- Aquí JavaScript avisará al jugador si alguna respuesta no es válida-->
 
+        <div id="mensajeValidacion" class="mensaje-validacion oculto"></div>
 
         <!-- boton corregir -->
         <button type="button" id="btnCorregir">

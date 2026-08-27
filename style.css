@@ -66,46 +66,30 @@
 .formulario {
 
 
-    position: absolute;
+    position: relative;
 
+    margin: 25px auto;
 
-    top:50%;
+    background: white;
 
-    left:50%;
+    padding: 25px;
 
+    border-radius: 15px;
 
-    transform:translate(-50%,-50%);
+    width: min(90%, 500px);
 
+    box-sizing: border-box;
 
+    display: flex;
 
-    background:white;
+    flex-direction: column;
 
+    gap: 10px;
 
-    padding:25px;
+    z-index: 20;
 
-
-    border-radius:15px;
-
-
-
-    width:(300px, calc(100vw - 40px));
-
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    gap:10px;
-
-
-
-    z-index:20;
-
-
-    box-shadow:0 0 20px black;
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.20);
 
 }
 
@@ -496,5 +480,146 @@ Aciertos
     outline: 2px solid #0037ff;
 
     border-color: #0037ff;
+
+}
+
+/* ==========================================
+   v1.2.5 — INSTRUCCIONES DEL JUEGO
+   ========================================== */
+
+/*
+   Panel de instrucciones.
+
+   Su objetivo es explicar rápidamente
+   al jugador cómo funciona la partida.
+*/
+
+.instrucciones-juego {
+
+    margin: 20px auto;
+
+    padding: 20px;
+
+    max-width: 600px;
+
+    background: #f5f5f5;
+
+    border: 2px solid #ddd;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.10);
+
+}
+
+
+/*
+   Título de las instrucciones
+*/
+
+.instrucciones-juego h2 {
+
+    margin-top: 0;
+
+    margin-bottom: 15px;
+
+    text-align: center;
+
+    font-size: 22px;
+
+}
+
+
+/*
+   Cada explicación.
+
+   Dejamos separación suficiente para
+   facilitar la lectura.
+*/
+
+.instrucciones-juego p {
+
+    margin: 10px 0;
+
+    line-height: 1.5;
+
+    font-size: 16px;
+
+}
+
+
+/*
+   Adaptación para pantallas pequeñas.
+
+   Reducimos ligeramente el tamaño y
+   los márgenes para aprovechar mejor
+   el espacio disponible.
+*/
+
+@media (max-width: 600px) {
+
+    .instrucciones-juego {
+
+        margin: 15px 10px;
+
+        padding: 15px;
+
+    }
+
+
+    .instrucciones-juego h2 {
+
+        font-size: 20px;
+
+    }
+
+
+    .instrucciones-juego p {
+
+        font-size: 15px;
+
+    }
+
+}
+
+/* ==========================================
+   v1.2.6 — MENSAJE DE VALIDACIÓN
+   ========================================== */
+
+/*
+   Mensaje que aparece cuando el jugador
+   introduce una respuesta incorrecta.
+*/
+
+.mensaje-validacion {
+
+    margin: 10px 0;
+
+    padding: 10px 15px;
+
+    border: 2px solid #cc3333;
+
+    border-radius: 8px;
+
+    background: #fff0f0;
+
+    text-align: center;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+
+/*
+   Cuando el mensaje está oculto,
+   no ocupa espacio en el formulario.
+*/
+
+.mensaje-validacion.oculto {
+
+    display: none !important;
 
 }
