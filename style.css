@@ -418,3 +418,83 @@ Aciertos
     font-size: 16px;
     font-weight: normal;
 }
+
+/* ==========================================
+   v1.2.4 — CAMPOS DE MEMORIA
+   ========================================== */
+
+/*
+   Cada campo contiene:
+   - una etiqueta
+   - un campo numérico
+
+   Los agrupamos visualmente para facilitar
+   la lectura y la interacción.
+*/
+
+.campo-memoria {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding: 10px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    background: #f8f8f8;
+}
+
+
+/*
+   Etiquetas de los campos
+*/
+
+.campo-memoria label {
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+}
+
+
+/*
+   Campos numéricos
+*/
+
+.campo-memoria input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 10px;
+
+    font-size: 18px;
+
+    text-align: center;
+
+    border: 1px solid #aaa;
+
+    border-radius: 6px;
+
+}
+
+
+/*
+   Cuando el jugador pulsa un campo,
+   lo hacemos visualmente más evidente.
+*/
+
+.campo-memoria input:focus {
+
+    outline: 2px solid #0037ff;
+
+    border-color: #0037ff;
+
+}

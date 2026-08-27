@@ -50,6 +50,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const btnIniciar = document.getElementById("btnIniciar");
 
+    // Mejora UX -Campos de respuesta
+    // Seleccionamos todos los campos numéricos del formulario de memoria.
+    
+    const camposMemoria = document.querySelectorAll(
+        ".campo-memoria input"
+    );
+
+    // Cuando el jugador pulsa un campo, seleccionamos automaticamente su contenido.
+    // Esto facilitará corregir rápidamente una respuesta introducida anteriormente.
+
+    camposMemoria.forEach(campo => {
+        campo.addEventListener("focus", () =>{
+            campo.select();
+        });
+    });
+
 
     // Zona donde mostraremos la puntuacion
 
