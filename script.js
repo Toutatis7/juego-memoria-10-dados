@@ -41,6 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const contador = document.getElementById("contador");
 
+    // Elemento donde mostraremos la instrucción correspondiente al estado actual de la partida
+    const instruccionEstado = document.getElementById("instruccionEstado");
+
     // Zona donde mostraremos las instrucciones correspondientes al estado actual del juego
 
     const instruccionesJuego = document.getElementById("instruccionesJuego")
@@ -149,8 +152,7 @@ let estadoJuego = "preparacion";
 //=======================
 function actualizarEstadoPartida() {
 
-    // Eliminamos las clases de estado anteriores
-
+    // Eliminamos las clases anteriores.
     estadoPartida.classList.remove(
         "estado-preparacion",
         "estado-memorizacion",
@@ -158,47 +160,95 @@ function actualizarEstadoPartida() {
         "estado-resultado"
     );
 
-    //Aplicamos la clase correspondiente
-    // al estado actual
-
+    // Comprobamos el estado actual del juego.
     switch (estadoJuego) {
+
+        // ======================================
+        // PREPARACIÓN
+        // ======================================
+
         case "preparacion":
+
             textoEstado.textContent =
                 "🎮 Preparado para jugar";
-            ayudaEstado.textContent=
+
+            ayudaEstado.textContent =
                 "Elige la dificultad y pulsa INICIAR JUEGO";
+
+            instruccionEstado.textContent =
+                '🎯 Elige la dificultad y pulsa "Iniciar Juego".';
+
             estadoPartida.classList.add(
                 "estado-preparacion"
             );
+
             break;
+
+
+        // ======================================
+        // MEMORIZACIÓN
+        // ======================================
+
         case "memorizacion":
+
             textoEstado.textContent =
                 "🧠 Memoriza los dados";
-            ayudaEstado.textContent=
+
+            ayudaEstado.textContent =
                 "Observa los 10 dados y memoriza sus caras.";
+
+            instruccionEstado.textContent =
+                "🧠 Memoriza los 10 dados antes de que termine el tiempo.";
+
             estadoPartida.classList.add(
                 "estado-memorizacion"
             );
+
             break;
+
+
+        // ======================================
+        // RESPUESTAS
+        // ======================================
+
         case "respuestas":
+
             textoEstado.textContent =
                 "📝 Introduce tus respuestas";
-            ayudaEstado.textContent=
-                "Indica cuantos dados recuerdas de cada tipo y pulsa Corregir.";
+
+            ayudaEstado.textContent =
+                "Indica cuántos dados recuerdas de cada tipo y pulsa Corregir.";
+
+            instruccionEstado.textContent =
+                "📝 Introduce cuántas caras de cada tipo recuerdas.";
+
             estadoPartida.classList.add(
                 "estado-respuestas"
             );
+
             break;
+
+
+        // ======================================
+        // RESULTADO
+        // ======================================
+
         case "resultado":
+
             textoEstado.textContent =
                 "🏆 Resultado de la partida";
-            ayudaEstado.textContent=
-                "Comprueba tus aciertos y tu puntuacion y, cuando quieras, pulsa Reiniciar para  jugar otra partida.";
+
+            ayudaEstado.textContent =
+                "Comprueba tus aciertos y tu puntuación y, cuando quieras, pulsa Reiniciar para jugar otra partida.";
+
+            instruccionEstado.textContent =
+                "🏆 Consulta tu resultado y comprueba tu puntuación.";
+
             estadoPartida.classList.add(
                 "estado-resultado"
             );
+
             break;
-        
     }
 }
 
@@ -232,6 +282,9 @@ console.log("Estado:", estadoJuego);
         estadoJuego = nuevoEstado;
 
         console.log("Estado del juego:", estadoJuego);
+
+        // Actualizamos toda interfaz
+        actualizarEstadoPartida();
 
         // Actualizamos los botones
         actualizarBotones();
@@ -351,93 +404,8 @@ console.log("Estado:", estadoJuego);
     }
 
 
-    // ==========================================
-// ACTUALIZAR INSTRUCCIONES
-// ==========================================
 
-    function actualizarInstrucciones() {
-
-        // Cambiamos el mensaje según el estado
-        // actual de la partida.
-
-        if (estadoJuego === "preparacion") {
-
-            instruccionesJuego.innerHTML = `
-                <h2>🧠 ¿Cómo jugar?</h2>
-
-                <p>
-                    🎯 Elige una dificultad y pulsa
-                    <strong>"Iniciar Juego"</strong>.
-                </p>
-
-                <p>
-                    👀 Memoriza los 10 dados mientras
-                    estén visibles.
-                </p>
-
-                <p>
-                    ⏰ Cuando termine el tiempo,
-                    tendrás que recordar los dados.
-                </p>
-
-                <p>
-                    📝 Introduce tus respuestas
-                    y pulsa <strong>"Corregir"</strong>.
-                </p>
-
-            `;
-
-        }
-
-        else if (estadoJuego === "memorizacion") {
-
-            instruccionesJuego.innerHTML = `
-                <h2>👀 ¡Memoriza!</h2>
-
-                <p>
-                    🧠 Observa los 10 dados
-                    y recuerda cuántos hay de cada tipo.
-                </p>
-            `;
-
-        }
-
-        else if (estadoJuego === "respuestas") {
-
-            instruccionesJuego.innerHTML = `
-                <h2>📝 Ahora responde</h2>
-
-                <p>
-                    Introduce cuántos dados recuerdas
-                    de cada categoría.
-                </p>
-
-                <p>
-                    ✅ Cuando hayas terminado,
-                    pulsa <strong>"Corregir"</strong>.
-                </p>
-            `;
-
-        }
-
-        else if (estadoJuego === "resultado") {
-
-            instruccionesJuego.innerHTML = `
-                <h2>🏆 Partida terminada</h2>
-
-                <p>
-                    Consulta tus aciertos,
-                    fallos y puntuación.
-                </p>
-
-                <p>
-                    🔄 Puedes reiniciar para jugar
-                    una nueva partida.
-                </p>
-            `;
-        }
-    }
-
+    
     // ==================================================
     // FUNCIÓN CREAR DADOS
     // ==================================================
@@ -449,8 +417,6 @@ console.log("Estado:", estadoJuego);
         // Los dados estan preparados para memorizar
         // Cambiamos el estado del juego
         cambiarEstado("memorizacion");
-
-        actualizarInstrucciones();
         
         actualizarEstadoPartida();
 
@@ -589,8 +555,6 @@ function iniciarTemporizador() {
             // Cambiar estado
             cambiarEstado("respuestas");
 
-            actualizarInstrucciones();
-
             actualizarEstadoPartida();
             // Mostrar el formulario
             formulario.classList.remove("oculto");
@@ -721,8 +685,7 @@ function corregirRespuestas(){
     cambiarEstado("resultado");
     console.log("Estado:", estadoJuego);
     actualizarEstadoPartida();
-    actualizarInstrucciones();
-// Contador real de símbolos
+    // Contador real de símbolos
 
     let contadorCaras={
 
@@ -866,19 +829,11 @@ function corregirRespuestas(){
         prepararNuevaPartida();
         // Preparar el estado
         cambiarEstado("preparacion");
-        
 
-        
+        // Reiniciamos el contador visual
+        tiempoRestante.textContent = "0";
 
-        // Aumentamos el numero de partida
-        numeroPartida ++;
-
-        console.log("Comenzar nueva partida:", numeroPartida)
-
-        // Crear nuevos dados
-        crearDados();
-        // Iniciar nuevo temporizador
-        iniciarTemporizador();
+        console.log("Partida preparada para comenzar de nuevo.");
 
     });
 
